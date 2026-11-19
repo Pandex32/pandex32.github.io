@@ -1,0 +1,44 @@
+<h2>Live Interactive WordPress Demo</h2>
+<p>
+  Try the plugin directly in your browser below—upload a PDF, paste a contract clause, run a risk assessment, or generate and e-sign an agreement:
+</p>
+
+<iframe 
+  id="wp-playground"
+  width="100%" 
+  height="780px" 
+  style="border: 1px solid #334155; border-radius: 8px; background: #fff;"
+  title="Legal AI Analyzer Live Demo">
+</iframe>
+
+<script>
+  const blueprint = {
+    landingPage: "/legal-analyzer-demo/",
+    preferredVersions: { php: "8.2", wp: "latest" },
+    steps: [
+      {
+        step: "installPlugin",
+        pluginData: {
+          resource: "url",
+          url: "https://pandex32.github.io/demos/legal-ai-analyzer-portfolio-v2.zip"
+        }
+      },
+      {
+        step: "runPHP",
+        code: `<?php
+          require '/wordpress/wp-load.php';
+          wp_insert_post([
+            'post_title'   => 'Legal AI Analyzer Demo',
+            'post_name'    => 'legal-analyzer-demo',
+            'post_content' => '[legal_ai_analyzer]',
+            'post_status'  => 'publish',
+            'post_type'    => 'page'
+          ]);
+        ?>`
+      }
+    ]
+  };
+
+  const encoded = encodeURIComponent(JSON.stringify(blueprint));
+  document.getElementById("wp-playground").src = `https://playground.wordpress.net/#${encoded}`;
+</script>
