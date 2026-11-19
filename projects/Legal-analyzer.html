@@ -1,44 +1,93 @@
-<h2>Live Interactive WordPress Demo</h2>
-<p>
-  Try the plugin directly in your browser below—upload a PDF, paste a contract clause, run a risk assessment, or generate and e-sign an agreement:
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Engine Legal Analyzer — Dylan Osei-Afriyie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">&larr; Back to all projects</a>
 
-<iframe 
-  id="wp-playground"
-  width="100%" 
-  height="780px" 
-  style="border: 1px solid #334155; border-radius: 8px; background: #fff;"
-  title="Legal AI Analyzer Live Demo">
-</iframe>
+    <div class="status-pill">
+      <span class="dot"></span> Live Browser Sandbox
+    </div>
+    <h1>AI Engine Legal Analyzer</h1>
+    <div class="meta">Built for Affirmative Services &bull; Role: Technical Consultant &amp; AI System Lead[cite: 3]</div>
 
-<script>
-  const blueprint = {
-    landingPage: "/legal-analyzer-demo/",
-    preferredVersions: { php: "8.2", wp: "latest" },
-    steps: [
-      {
-        step: "installPlugin",
-        pluginData: {
-          resource: "url",
-          url: "https://pandex32.github.io/demos/legal-ai-analyzer-portfolio-v2.zip"
+    <div class="case-section">
+      <h2>Try It Live</h2>
+      <p>
+        Below is a real WordPress environment running directly in your browser with the plugin pre-installed. You can upload a PDF, paste a contract clause, run a risk assessment, or generate and e-sign an English-law agreement[cite: 4].
+      </p>
+
+      <iframe
+        id="wp-playground"
+        class="demo-frame"
+        title="Legal AI Analyzer Live Demo">
+      </iframe>
+    </div>
+
+    <div class="case-section">
+      <h2>How It Works Under the Hood</h2>
+      <p>
+        Reviewing legal contracts manually is slow and easy to get wrong. I led the architecture and backend team to build a modular WordPress plugin (<code>[legal_ai_analyzer]</code>) that turns raw legal documents into structured, plain-English insights[cite: 3, 4].
+      </p>
+
+      <div class="flow-card">
+        <strong>Pipeline:</strong> PDF Upload or Pasted Text &rarr; PHP Text Extractor &amp; Sanitizer &rarr; AI Engine Prompt Layer &rarr; Risk Report, Clause Audit, or E-Signed PDF[cite: 4]
+      </div>
+    </div>
+
+    <div class="case-section">
+      <h2>What I Built &amp; Led</h2>
+      <ul>
+        <li><strong>Multi-Mode Analysis:</strong> Built workflows for full contract scanning, HIGH/MEDIUM/LOW risk scoring, missing clause detection, key date extraction, and plain-English summaries[cite: 4].</li>
+        <li><strong>Contract Drafting &amp; E-Signatures:</strong> Added a contract generator tailored to English law paired with an HTML5 signature pad that embeds both parties’ signatures directly into a downloadable PDF[cite: 4].</li>
+        <li><strong>Server-Side PDF Handling:</strong> Implemented PHP PDF extraction (up to 10MB) and formatted PDF report generation[cite: 4].</li>
+        <li><strong>Security &amp; Team Coordination:</strong> Enforced AJAX nonce checks, strict MIME-type validation, and clean Git workflows across the backend team[cite: 3, 4].</li>
+      </ul>
+    </div>
+
+    <footer>
+      <p><a href="../index.html">&larr; Return to Portfolio</a> &bull; Dylan Osei-Afriyie</p>
+    </footer>
+  </div>
+
+  <script>
+    const blueprint = {
+      landingPage: "/legal-analyzer-demo/",
+      preferredVersions: { php: "8.2", wp: "latest" },
+      steps: [
+        {
+          step: "installPlugin",
+          pluginData: {
+            resource: "url",
+            url: "https://pandex32.github.io/demos/legal-ai-analyzer-portfolio-v2.zip"
+          }
+        },
+        {
+          step: "runPHP",
+          code: `<?php
+            require '/wordpress/wp-load.php';
+            wp_insert_post([
+              'post_title'   => 'Legal AI Analyzer Demo',
+              'post_name'    => 'legal-analyzer-demo',
+              'post_content' => '[legal_ai_analyzer]',
+              'post_status'  => 'publish',
+              'post_type'    => 'page'
+            ]);
+          ?>`
         }
-      },
-      {
-        step: "runPHP",
-        code: `<?php
-          require '/wordpress/wp-load.php';
-          wp_insert_post([
-            'post_title'   => 'Legal AI Analyzer Demo',
-            'post_name'    => 'legal-analyzer-demo',
-            'post_content' => '[legal_ai_analyzer]',
-            'post_status'  => 'publish',
-            'post_type'    => 'page'
-          ]);
-        ?>`
-      }
-    ]
-  };
+      ]
+    };
 
-  const encoded = encodeURIComponent(JSON.stringify(blueprint));
-  document.getElementById("wp-playground").src = `https://playground.wordpress.net/#${encoded}`;
-</script>
+    const encoded = encodeURIComponent(JSON.stringify(blueprint));
+    document.getElementById("wp-playground").src = `https://playground.wordpress.net/#${encoded}`;
+  </script>
+</body>
+</html>
