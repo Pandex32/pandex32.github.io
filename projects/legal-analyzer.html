@@ -58,29 +58,35 @@
     </footer>
   </div>
 
-  <script>
-    const pluginZipUrl = new URL("../demos/legal-ai-analyzer-portfolio-v2.zip", window.location.href).href;
+<script>
+  const isHosted = window.location.protocol.startsWith("http") &&
+    !window.location.hostname.includes("localhost") &&
+    !window.location.hostname.includes("127.0.0.1");
 
-    const blueprint = {
-      landingPage: "/?page_id=2",
-      preferredVersions: { php: "8.2", wp: "latest" },
-      steps: [
-        {
-          step: "installPlugin",
-          pluginData: {
-            resource: "url",
-            url: pluginZipUrl
-          }
-        },
-        {
-          step: "runPHP",
-          code: "require '/wordpress/wp-load.php'; wp_update_post(['ID' => 2, 'post_title' => 'Legal AI Analyzer Demo', 'post_content' => '[legal_ai_analyzer]', 'post_status' => 'publish']);"
+  const pluginZipUrl = isHosted
+    ? new URL("../demos/legal-ai-analyzer-portfolio-v2.zip", window.location.href).href
+    : "https://pandex32.github.io/demos/legal-ai-analyzer-portfolio-v2.zip";
+
+  const blueprint = {
+    landingPage: "/?page_id=2",
+    preferredVersions: { php: "8.2", wp: "latest" },
+    steps: [
+      {
+        step: "installPlugin",
+        pluginData: {
+          resource: "url",
+          url: pluginZipUrl
         }
-      ]
-    };
+      },
+      {
+        step: "runPHP",
+        code: "require '/wordpress/wp-load.php'; wp_update_post(['ID' => 2, 'post_title' => 'Legal AI Analyzer Demo', 'post_content' => '[legal_ai_analyzer]', 'post_status' => 'publish']);"
+      }
+    ]
+  };
 
-    const encoded = encodeURIComponent(JSON.stringify(blueprint));
-    document.getElementById("wp-playground").src = `https://playground.wordpress.net/#${encoded}`;
-  </script>
+  const encoded = encodeURIComponent(JSON.stringify(blueprint));
+  document.getElementById("wp-playground").src = `https://playground.wordpress.net/#${encoded}`;
+</script>
 </body>
 </html>
