@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Engine Legal Analyzer — Dylan Osei-Afriyie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container">
+    <a href="../index.html" class="back-link">&larr; Back to portfolio</a>
+
+    <div class="status-pill"><span class="dot"></span> Live browser sandbox</div>
+    <h1>AI Engine Legal Analyzer</h1>
+    <p class="meta">Technical Consultant &amp; AI System Lead</p>
+
+    <section class="case-section">
+      <h2>Try It Live</h2>
+      <p>Explore a WordPress environment running in your browser with the plugin pre-installed. Upload a PDF, paste a contract clause, assess risk, or generate and e-sign an English-law agreement.</p>
+      <iframe id="wp-playground" class="demo-frame" title="AI Engine Legal Analyzer live demo"></iframe>
+    </section>
+
+    <section class="case-section">
+      <h2>How It Works Under the Hood</h2>
+      <p>The modular <code>[legal_ai_analyzer]</code> plugin turns legal documents into structured, plain-English insights through a focused analysis pipeline.</p>
+      <div class="flow-card"><strong>Pipeline:</strong> PDF upload or pasted text &rarr; PHP text extraction and sanitization &rarr; AI Engine prompt layer &rarr; risk report, clause audit, or e-signed PDF</div>
+    </section>
+
+    <section class="case-section">
+      <h2>What I Built &amp; Led</h2>
+      <ul>
+        <li><strong>Multi-mode legal analysis:</strong> Full contract scanning, HIGH/MEDIUM/LOW risk scoring, missing-clause detection, key-date extraction, and plain-English summaries.</li>
+        <li><strong>English-law drafting and dual e-signatures:</strong> A contract generator tailored to English law with an HTML5 signature pad that embeds both parties’ signatures into a downloadable PDF.</li>
+        <li><strong>Server-side PDF extraction and generation:</strong> PHP extraction for uploads up to 10MB and formatted PDF report generation.</li>
+        <li><strong>AJAX and file security:</strong> Nonce checks and strict MIME-type validation protect requests and uploaded documents.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p><a href="../index.html">&larr; Return to portfolio</a> &bull; Dylan Osei-Afriyie</p>
+    </footer>
+  </div>
+
+  <script>
+    const blueprint = {
+      landingPage: "/legal-analyzer-demo/",
+      preferredVersions: { php: "8.2", wp: "latest" },
+      steps: [
+        {
+          step: "installPlugin",
+          pluginData: {
+            resource: "url",
+            url: "https://pandex32.github.io/demos/legal-ai-analyzer-portfolio-v2.zip"
+          }
+        },
+        {
+          step: "runPHP",
+          code: `<?php
+            require '/wordpress/wp-load.php';
+            wp_insert_post([
+              'post_title' => 'Legal AI Analyzer Demo',
+              'post_name' => 'legal-analyzer-demo',
+              'post_content' => '[legal_ai_analyzer]',
+              'post_status' => 'publish',
+              'post_type' => 'page'
+            ]);
+          ?>`
+        }
+      ]
+    };
+
+    const blueprintUrl = `https://playground.wordpress.net/#${encodeURIComponent(JSON.stringify(blueprint))}`;
+    document.getElementById("wp-playground").src = blueprintUrl;
+  </script>
+</body>
+</html>
