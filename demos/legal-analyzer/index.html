@@ -3,119 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Legal AI Analyser</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Legal Document Analyser</title>
+  <link rel="stylesheet" href="app.css">
 </head>
 <body>
   <main class="laa-app">
-    <header class="laa-header">
-      <h1>Legal Document Analyser</h1>
-      <p>Upload a PDF or text file, paste a clause, and run a local legal analysis.</p>
-    </header>
-
-    <nav class="laa-tabs" aria-label="Demo tabs">
-      <button class="laa-tab active" data-tab="analyse">Full Analysis</button>
-      <button class="laa-tab" data-tab="risks">Risk Assessment</button>
+    <header class="laa-header"><h1>Legal Document Analyser</h1></header>
+    <nav class="laa-tabs" aria-label="Legal analysis modes">
+      <button class="laa-tab active" data-tab="analysis">Full Analysis</button>
+      <button class="laa-tab" data-tab="risk">Risk Assessment</button>
       <button class="laa-tab" data-tab="missing">Missing Clauses</button>
       <button class="laa-tab" data-tab="dates">Key Dates</button>
       <button class="laa-tab" data-tab="summary">Plain Summary</button>
-      <button class="laa-tab" data-tab="generate">Contract Generator</button>
+      <button class="laa-tab" data-tab="generate">Generate Contract</button>
     </nav>
-
     <div class="laa-grid">
-      <section class="laa-input">
-        <div class="laa-panel active" id="panel-analyse">
-          <label>Document text</label>
-          <textarea id="text-analyse" placeholder="Paste a contract or document for full analysis..."></textarea>
-          <button class="laa-action" data-action="analyse">Analyse Contract</button>
+      <section class="laa-panel laa-input">
+        <div class="laa-upload">
+          <label for="contract-file">Upload .txt or .md contract</label>
+          <input id="contract-file" type="file" accept=".txt,.md,text/plain,text/markdown">
         </div>
-        <div class="laa-panel" id="panel-risks">
-          <label>Contract text</label>
-          <textarea id="text-risks" placeholder="Paste contract text to assess risks..."></textarea>
-          <button class="laa-action" data-action="risks">Assess Risks</button>
+        <button id="load-sample" class="laa-secondary" type="button">Load Sample UK Contract</button>
+        <div id="analysis-controls">
+          <label for="contract-text">Contract text</label>
+          <textarea id="contract-text" placeholder="Paste contract text here..."></textarea>
+          <button id="analyse-button" class="laa-primary" type="button">Run Analysis</button>
         </div>
-        <div class="laa-panel" id="panel-missing">
-          <label>Contract text</label>
-          <textarea id="text-missing" placeholder="Paste contract text to detect missing clauses..."></textarea>
-          <button class="laa-action" data-action="missing">Detect Missing Clauses</button>
-        </div>
-        <div class="laa-panel" id="panel-dates">
-          <label>Document text</label>
-          <textarea id="text-dates" placeholder="Paste document text to extract key dates..."></textarea>
-          <button class="laa-action" data-action="dates">Extract Dates</button>
-        </div>
-        <div class="laa-panel" id="panel-summary">
-          <label>Document text</label>
-          <textarea id="text-summary" placeholder="Paste document text for a plain-English summary..."></textarea>
-          <button class="laa-action" data-action="summary">Summarise Document</button>
-        </div>
-        <div class="laa-panel" id="panel-generate">
-          <label for="contract-type">Contract type</label>
-          <select id="contract-type"></select>
-          <div id="contract-fields"></div>
-          <button class="laa-action" id="generate-contract">Generate Contract</button>
-        </div>
-
-        <div class="laa-upload" id="upload-zone">
-          <strong>Upload document</strong>
-          <span>PDF or TXT, up to 10 MB</span>
-          <input type="file" id="document-file" accept=".pdf,.txt,application/pdf,text/plain">
-          <button type="button" id="choose-file">Choose File</button>
-          <div id="file-status"></div>
-        </div>
+        <form id="generator-form" hidden>
+          <h2>Contract Details</h2>
+          <label for="contract-type">Contract Type</label>
+          <select id="contract-type">
+            <option>Service Agreement</option>
+            <option>Employment Contract</option>
+            <option>Non-Disclosure Agreement</option>
+            <option>Software Licence Agreement</option>
+            <option>Consultancy Agreement</option>
+          </select>
+          <label for="party-a">Party A</label>
+          <input id="party-a" type="text" placeholder="Full legal name">
+          <label for="party-b">Party B</label>
+          <input id="party-b" type="text" placeholder="Full legal name">
+          <label for="scope-details">Scope / Details</label>
+          <textarea id="scope-details" placeholder="Services, duration, payment terms, governing jurisdiction..."></textarea>
+          <button id="generate-button" class="laa-primary" type="button">Generate Contract</button>
+        </form>
       </section>
-
-      <section class="laa-output">
-        <div id="placeholder">
-          <div class="laa-placeholder-icon">§</div>
-          <p>Upload a PDF or text file, then choose an action.</p>
+      <section class="laa-panel laa-output">
+        <div id="results-placeholder">
+          <div class="laa-section-mark">§</div>
+          <p>Choose a tab and run an analysis or generate a contract.</p>
         </div>
-        <div id="loading" hidden><div class="laa-spinner"></div><p>Preparing local analysis...</p></div>
         <article id="results" hidden></article>
-        <button id="open-sign" class="laa-sign-button" hidden>Sign This Contract</button>
+        <section id="signature-section" hidden>
+          <h2>Dual-Party Electronic Signatures</h2>
+          <div class="laa-signatures">
+            <div>
+              <label for="canvas-a">Party A Signature</label>
+              <canvas id="canvas-a" width="320" height="150"></canvas>
+              <button type="button" class="laa-clear" data-canvas="canvas-a">Clear</button>
+            </div>
+            <div>
+              <label for="canvas-b">Party B Signature</label>
+              <canvas id="canvas-b" width="320" height="150"></canvas>
+              <button type="button" class="laa-clear" data-canvas="canvas-b">Clear</button>
+            </div>
+          </div>
+          <button id="apply-signatures" class="laa-primary" type="button">Apply Signatures &amp; Print PDF</button>
+        </section>
       </section>
     </div>
   </main>
-
-  <div id="signature-modal" class="laa-modal" hidden>
-    <div class="laa-sign-box">
-      <header class="laa-sign-header">
-        <div><h2>Sign Contract</h2><p>Both parties must sign.</p></div>
-        <button id="close-sign" type="button" aria-label="Close">×</button>
-      </header>
-      <div class="laa-sign-body">
-        <div class="laa-party-grid">
-          <div><label>Party A — Full legal name</label><input id="party-a-name" type="text"><label>Email (optional)</label><input id="party-a-email" type="email"></div>
-          <div><label>Party B — Full legal name</label><input id="party-b-name" type="text"><label>Email (optional)</label><input id="party-b-email" type="email"></div>
-        </div>
-        <div class="laa-sign-mode">
-          <button class="active" data-mode="draw" type="button">Draw Signature</button>
-          <button data-mode="type" type="button">Type Signature</button>
-        </div>
-        <div id="draw-mode">
-          <div class="laa-pad-grid">
-            <div><label>Party A — Draw</label><canvas id="canvas-a" width="320" height="110"></canvas><button type="button" data-clear="canvas-a">Clear</button></div>
-            <div><label>Party B — Draw</label><canvas id="canvas-b" width="320" height="110"></canvas><button type="button" data-clear="canvas-b">Clear</button></div>
-          </div>
-        </div>
-        <div id="type-mode" hidden>
-          <div class="laa-pad-grid">
-            <div><label>Party A — Type Name</label><input id="type-a" type="text"></div>
-            <div><label>Party B — Type Name</label><input id="type-b" type="text"></div>
-          </div>
-        </div>
-        <p id="sign-error" class="laa-sign-error" hidden></p>
-        <div class="laa-sign-actions">
-          <button id="download-signed" type="button">Sign &amp; Download PDF</button>
-          <button id="print-signed" type="button">Print Contract</button>
-          <button id="cancel-sign" type="button">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
