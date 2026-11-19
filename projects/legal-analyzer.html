@@ -62,7 +62,7 @@
     const pluginZipUrl = new URL("../demos/legal-ai-analyzer-portfolio-v2.zip", window.location.href).href;
 
     const blueprint = {
-      landingPage: "/?page_id=999",
+      landingPage: "/?page_id=2",
       preferredVersions: { php: "8.2", wp: "latest" },
       steps: [
         {
@@ -73,8 +73,8 @@
           }
         },
         {
-          step: "wp-cli",
-          command: "wp post create --import_id=999 --post_type=page --post_status=publish --post_title='Legal AI Analyzer Demo' --post_content='[legal_ai_analyzer]'"
+          step: "runPHP",
+          code: "require '/wordpress/wp-load.php'; wp_update_post(['ID' => 2, 'post_title' => 'Legal AI Analyzer Demo', 'post_content' => '[legal_ai_analyzer]', 'post_status' => 'publish']);"
         }
       ]
     };
