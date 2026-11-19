@@ -1,50 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Engine Legal Analyzer — Dylan Osei-Afriyie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
   <div class="container">
     <a href="../index.html" class="back-link">&larr; Back to portfolio</a>
 
-    <div class="status-pill"><span class="dot"></span> Live browser sandbox</div>
+    <div class="status-pill">
+      <span class="dot"></span> Live Browser Sandbox
+    </div>
     <h1>AI Engine Legal Analyzer</h1>
-    <p class="meta">Technical Consultant &amp; AI System Lead</p>
+    <div class="meta">Built for Affirmative Services &bull; Role: Technical Consultant &amp; AI System Lead</div>
 
-    <section class="case-section">
+    <div class="case-section">
       <h2>Try It Live</h2>
-      <p>Explore a WordPress environment running in your browser with the plugin pre-installed. Upload a PDF, paste a contract clause, assess risk, or generate and e-sign an English-law agreement.</p>
-      <iframe id="wp-playground" class="demo-frame" title="AI Engine Legal Analyzer live demo"></iframe>
-    </section>
+      <p>
+        Below is a real WordPress environment running directly in your browser with the plugin pre-installed. You can upload a PDF, paste a contract clause, run a risk assessment, or generate and e-sign an English-law agreement.
+      </p>
 
-    <section class="case-section">
+      <iframe
+        id="wp-playground"
+        class="demo-frame"
+        title="Legal AI Analyzer Live Demo">
+      </iframe>
+    </div>
+
+    <div class="case-section">
       <h2>How It Works Under the Hood</h2>
-      <p>The modular <code>[legal_ai_analyzer]</code> plugin turns legal documents into structured, plain-English insights through a focused analysis pipeline.</p>
-      <div class="flow-card"><strong>Pipeline:</strong> PDF upload or pasted text &rarr; PHP text extraction and sanitization &rarr; AI Engine prompt layer &rarr; risk report, clause audit, or e-signed PDF</div>
-    </section>
+      <p>
+        Reviewing legal contracts manually is slow and easy to get wrong. I led the architecture and backend team to build a modular WordPress plugin (<code>[legal_ai_analyzer]</code>) that turns raw legal documents into structured, plain-English insights.
+      </p>
 
-    <section class="case-section">
+      <div class="flow-card">
+        <strong>Pipeline:</strong> PDF Upload or Pasted Text &rarr; PHP Text Extractor &amp; Sanitizer &rarr; AI Engine Prompt Layer &rarr; Risk Report, Clause Audit, or E-Signed PDF
+      </div>
+    </div>
+
+    <div class="case-section">
       <h2>What I Built &amp; Led</h2>
       <ul>
-        <li><strong>Multi-mode legal analysis:</strong> Full contract scanning, HIGH/MEDIUM/LOW risk scoring, missing-clause detection, key-date extraction, and plain-English summaries.</li>
-        <li><strong>English-law drafting and dual e-signatures:</strong> A contract generator tailored to English law with an HTML5 signature pad that embeds both parties’ signatures into a downloadable PDF.</li>
-        <li><strong>Server-side PDF extraction and generation:</strong> PHP extraction for uploads up to 10MB and formatted PDF report generation.</li>
-        <li><strong>AJAX and file security:</strong> Nonce checks and strict MIME-type validation protect requests and uploaded documents.</li>
+        <li><strong>Multi-Mode Analysis:</strong> Built workflows for full contract scanning, HIGH/MEDIUM/LOW risk scoring, missing clause detection, key date extraction, and plain-English summaries.</li>
+        <li><strong>Contract Drafting &amp; E-Signatures:</strong> Added a contract generator tailored to English law paired with an HTML5 signature pad that embeds both parties’ signatures directly into a downloadable PDF.</li>
+        <li><strong>Server-Side PDF Handling:</strong> Implemented PHP PDF extraction (up to 10MB) and formatted PDF report generation.</li>
+        <li><strong>Security &amp; Team Coordination:</strong> Enforced AJAX nonce checks, strict MIME-type validation, and clean Git workflows across the backend team.</li>
       </ul>
-    </section>
+    </div>
 
     <footer>
-      <p><a href="../index.html">&larr; Return to portfolio</a> &bull; Dylan Osei-Afriyie</p>
+      <p><a href="../index.html">&larr; Return to Portfolio</a> &bull; Dylan Osei-Afriyie</p>
     </footer>
   </div>
 
   <script>
+    const pluginZipUrl = new URL("../demos/legal-ai-analyzer-portfolio-v2.zip", window.location.href).href;
+
     const blueprint = {
       landingPage: "/legal-analyzer-demo/",
       preferredVersions: { php: "8.2", wp: "latest" },
@@ -53,7 +69,7 @@
           step: "installPlugin",
           pluginData: {
             resource: "url",
-            url: "https://pandex32.github.io/demos/legal-ai-analyzer-portfolio-v2.zip"
+            url: pluginZipUrl
           }
         },
         {
@@ -61,19 +77,19 @@
           code: `<?php
             require '/wordpress/wp-load.php';
             wp_insert_post([
-              'post_title' => 'Legal AI Analyzer Demo',
-              'post_name' => 'legal-analyzer-demo',
+              'post_title'   => 'Legal AI Analyzer Demo',
+              'post_name'    => 'legal-analyzer-demo',
               'post_content' => '[legal_ai_analyzer]',
-              'post_status' => 'publish',
-              'post_type' => 'page'
+              'post_status'  => 'publish',
+              'post_type'    => 'page'
             ]);
           ?>`
         }
       ]
     };
 
-    const blueprintUrl = `https://playground.wordpress.net/#${encodeURIComponent(JSON.stringify(blueprint))}`;
-    document.getElementById("wp-playground").src = blueprintUrl;
+    const encoded = encodeURIComponent(JSON.stringify(blueprint));
+    document.getElementById("wp-playground").src = `https://playground.wordpress.net/#${encoded}`;
   </script>
 </body>
 </html>
